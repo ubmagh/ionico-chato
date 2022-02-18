@@ -33,7 +33,8 @@ import { personCircleOutline } from 'ionicons/icons';
 
 setupIonicReact();
 
-const socket = io("http://localhost:3001")
+const socket = io() // for web
+// const socket = io() // for mobile, provide the url of the server
 
 
 const App: React.FC = () => {

@@ -14,8 +14,14 @@ const port = process.env.PORT || 3001;
 
 let users = [];
 
+app.use(express.static('ionic-build'))
+
+
 app.use( '/', function(req,res){
-    res.send(" 👋 Hi there ")
+
+    res.sendFile(__dirname + '/ionic-build/index.html');
+
+    // res.send(" 👋 Hi there ")
 })
 
 io.on('connection', (socket) => {

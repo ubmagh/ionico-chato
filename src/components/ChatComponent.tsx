@@ -1,5 +1,5 @@
 import { IonContent, IonFooter, IonToolbar } from "@ionic/react";
-import { useRef, ReactDOM, useState } from "react";
+import { useRef, useState } from "react";
 import chatDetails from "../types/chatDetails";
 import Message from "./Message";
 import MessageBox from "./MessageBox";
