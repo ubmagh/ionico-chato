@@ -1,6 +1,6 @@
 {
   "name": "ionico-chato",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "3.4.1",
@@ -47,7 +47,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "buildall": "ionic build && npx cap sync android && npx cap sync @capacitor-community/electron ",
+    "desktop": "npx cap open @capacitor-community/electron"
   },
   "eslintConfig": {
     "extends": [
@@ -69,6 +71,7 @@
   },
   "description": "An Ionic project",
   "devDependencies": {
+    "@capacitor-community/electron": "^4.1.0",
     "@capacitor/cli": "3.4.1",
     "@types/randomcolor": "^0.5.6"
   }
