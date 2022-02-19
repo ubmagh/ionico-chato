@@ -22,25 +22,26 @@ const DetailsForm: React.FC<detailsFormParams> = ( { setUsername, socket, setCol
 
 
     const submitUsername = async ()=>{
-        present({
+        await present({
             message: "Checking username ...",
             keyboardClose: false,
-            spinner: "lines"
-        });
+            spinner: "crescent"
+        })
         blocked = true;
         inputRef.current?.setAttribute('disabled', "true");
-        socket.on('usernameTaken', val=>{
-            dismiss();
+        socket.on('usernameTaken', async val=>{
+            await dismiss();
             ionAlert({
                 header: "username taken",
-                message: "This username is already used by someone !"
+                message: "This username is already used by someone !",
+                buttons: ['OK']
             })
             setLocalUsername('');
         })
-        socket.on('usernameRegistred', val=>{
+        socket.on('usernameRegistred', async val=>{
             setUsername(localUsername)
             setColor( randomColor() );
-            dismiss();
+            await dismiss();
         })
         socket.emit('setUsername', localUsername);
         inputRef.current?.removeAttribute('disabled');

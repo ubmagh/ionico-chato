@@ -27,6 +27,11 @@ app.use( '/', function(req,res){
 io.on('connection', (socket) => {
     const addr = socket.handshake.address+" => "+socket.request.connection.remotePort;
     console.log("ℹ New connection : ", addr)
+    io.emit('countusers', {count: users.length});
+
+    socket.on('countusers', any=>{
+        socket.emit('countusers', {count: users.length});
+    })
 
     socket.on( 'setUsername', (username)=>{
         if( users.find( (val, index)=> val.username === username )!==undefined )
@@ -35,18 +40,20 @@ io.on('connection', (socket) => {
             users.push({ username, id:socket.id, addr})
             socket.emit("usernameRegistred")
             console.log('ℹ new user : "'+username+'" @ '+addr)
+            io.emit('countusers', {count: users.length});
         }
     })
     socket.on('message', msg => {
       io.emit('message', msg);
     });
+
     socket.on( 'disconnect', async()=>{
         const disconnectingUser = users.find( (val, index)=> val.id === socket.id )
         if( disconnectingUser ){
             console.log("ℹ user disconnected : ", disconnectingUser.username, " @ ", addr)
             users = users.filter( (val)=>val.id!==disconnectingUser.id );
         }
-
+        io.emit('countusers', {count: users.length});
     })
 });
 

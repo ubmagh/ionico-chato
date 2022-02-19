@@ -34,15 +34,20 @@ import { personCircleOutline } from 'ionicons/icons';
 setupIonicReact();
 
 // const socket = io() // for web
-// const socket = io("http://localhost:3001/") // for dev
-const socket = io("https://ionico-chat.herokuapp.com/") // for mobile & desktop, provide the url of the server
+const socket = io("http://localhost:3001/") // for dev
+// const socket = io("https://ionico-chat.herokuapp.com/") // for mobile & desktop, provide the url of the server
 
 
 const App: React.FC = () => {
   
   const [ username, setUsername] = useState<string>('');
   const [ color, setColor] = useState<string>('');
+  let [ numUsers, setNumUsers] = useState<number>(0);
 
+  socket.on('countusers', (res)=>{
+    setNumUsers(res.count);
+  });
+  socket.emit("countusers")
 
   return(
   <IonApp>
@@ -58,6 +63,7 @@ const App: React.FC = () => {
               {username}
           </div>
         }
+        <div> Online users : {numUsers} </div>
       </IonToolbar>
     </IonHeader>
 
