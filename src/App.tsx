@@ -34,8 +34,8 @@ import { personCircleOutline } from 'ionicons/icons';
 setupIonicReact();
 
 // const socket = io() // for web
-const socket = io("http://localhost:3001/") // for dev
-//const socket = io("https://ionico-chat.herokuapp.com/") // for mobile, provide the url of the server
+// const socket = io("http://localhost:3001/") // for dev
+const socket = io("https://ionico-chat.herokuapp.com/") // for mobile & desktop, provide the url of the server
 
 
 const App: React.FC = () => {

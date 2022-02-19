@@ -17,7 +17,7 @@ const Message: React.FC<MessageDetails> = ( { sender, message, color, currentUse
             <IonCardHeader> 
                 <IonLabel className="ion-text-bold">
                     <h4 style={ {color, fontWeight:"bold"}}>
-                        { sender } { currentUser==sender && " (You) "}:
+                        { sender } { currentUser===sender && " (You) "}:
                     </h4>
                 </IonLabel>
             </IonCardHeader>
