@@ -1,14 +1,20 @@
 import { IonContent, IonFooter, IonToolbar } from "@ionic/react";
 import { useRef, useState } from "react";
-import chatDetails from "../types/chatDetails";
+import { Socket } from "socket.io-client";
 import Message from "./Message";
 import MessageBox from "./MessageBox";
 
-const ChatComponent: React.FC<chatDetails> = ( { username, socket } ) => {
+interface chatComponentType {
+    username: string,
+    socket: Socket,
+    color: string
+}
+
+const ChatComponent: React.FC<chatComponentType> = ( { username, socket, color } ) => {
     let messagesContainer = useRef<HTMLDivElement>(null);
     let [ messages, setMessages] = useState<any[]>([]);
     socket.on('message', (message)=>{
-        let messageObj = <Message message={message.message} sender={message.sender}></Message>;
+        let messageObj = <Message message={message.message} sender={message.sender} currentUser={username} color={message.color} ></Message>;
         setMessages( [ ...messages, messageObj] );
     })
     return (
@@ -20,7 +26,7 @@ const ChatComponent: React.FC<chatDetails> = ( { username, socket } ) => {
             </IonContent>
             <IonFooter className='ion-padding'>
             <IonToolbar>
-                <MessageBox username={username} socket={socket} >
+                <MessageBox username={username} socket={socket} color={color} >
                 </MessageBox>
             </IonToolbar>
             </IonFooter>

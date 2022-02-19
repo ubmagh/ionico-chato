@@ -1,5 +1,7 @@
 {
   "name": "chato",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

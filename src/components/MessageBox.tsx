@@ -2,19 +2,23 @@ import { useRef } from 'react';
 import { IonButton, IonCol, IonFab, IonGrid, IonIcon, IonItem, IonLabel, IonRow, IonTextarea } from '@ionic/react';
 import './MessageBox.css';
 import { sendOutline } from 'ionicons/icons'
-import chatDetails from '../types/chatDetails';
+import { Socket } from 'socket.io-client';
 
 
+interface messageBoxType {
+  username: string,
+  socket: Socket,
+  color: string
+}
 
 
-
-const MessageBox: React.FC<chatDetails> = ( { username, socket } ) => {
+const MessageBox: React.FC<messageBoxType> = ( { username, socket, color } ) => {
   
   const message = useRef<HTMLIonTextareaElement>(null);
 
   const sendMessage = ()=>{
-    socket.emit('message', { sender: username, message: message.current!.value});
-    document.getElementById('message')!.innerText = ""
+    socket.emit('message', { sender: username, message: message.current!.value, color });
+    message.current!.value=""
   }
 
 

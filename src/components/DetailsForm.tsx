@@ -1,15 +1,19 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonIcon, IonInput, IonItem, IonLabel, IonRow, IonTitle, useIonLoading, useIonAlert } from "@ionic/react";
 import { arrowForwardCircle } from "ionicons/icons";
 import './DetailsForm.css';
-import { io, Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { useRef, useState } from "react";
+import randomColor from "randomcolor";
+
+
 
 interface detailsFormParams {
     setUsername : ( username:string )=>any,
-    socket : Socket
+    socket : Socket,
+    setColor : ( color:string )=>any,
 }
 
-const DetailsForm: React.FC<detailsFormParams> = ( { setUsername, socket } ) => {
+const DetailsForm: React.FC<detailsFormParams> = ( { setUsername, socket, setColor } ) => {
     const [present, dismiss] = useIonLoading();
     const [ionAlert] = useIonAlert();
     const inputRef = useRef<HTMLIonInputElement>(null);
@@ -35,6 +39,7 @@ const DetailsForm: React.FC<detailsFormParams> = ( { setUsername, socket } ) => 
         })
         socket.on('usernameRegistred', val=>{
             setUsername(localUsername)
+            setColor( randomColor() );
             dismiss();
         })
         socket.emit('setUsername', localUsername);
